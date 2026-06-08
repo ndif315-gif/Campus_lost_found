@@ -348,6 +348,9 @@ A User can own:
 # Authors
 
 Group 8
+NDI OBEN FAI; scrum master
+DIGMU TYLSON BUCHU; project owner
+NGOLE NDILLE EDDY JUNIOR; desingner
 
 ICT UNIVERSITY
 
