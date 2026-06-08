@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Notifications - Campus Lost & Found">
+    <title>Notifications | Campus Lost & Found</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="notifications-page">
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 9-2 2 2 2"/><path d="m15 9 2 2-2 2"/><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                <span class="brand-text">Campus L&F</span>
+            </div>
+            
+            <div class="nav-menu">
+                <a href="dashboard.html" class="nav-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+                    <span>Dashboard</span>
+                </a>
+                <a href="report-lost.html" class="nav-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="12" x2="12" y1="18" y2="12"/><line x1="9" x2="15" y1="15" y2="15"/></svg>
+                    <span>Lost</span>
+                </a>
+                <a href="report-found.html" class="nav-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                    <span>Found</span>
+                </a>
+                <a href="notifications.html" class="nav-item active">
+                    <div class="notif-wrapper">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+                    </div>
+                    <span>Alerts</span>
+                </a>
+            </div>
+
+            <div class="nav-actions">
+                <button class="btn btn-ghost" onclick="logout()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="dashboard-container">
+        <header class="dashboard-header">
+            <div class="welcome-section">
+                <h2>Notifications</h2>
+                <p>Stay updated on your item matches and reports.</p>
+            </div>
+            <button class="btn btn-outline btn-sm" onclick="markAllAsRead()">Mark all as read</button>
+        </header>
+
+        <section id="notificationsList" class="notifications-grid">
+            <div class="empty-state">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+                <p>No new notifications at the moment.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal implementation would go here if needed -->
+
+    <style>
+        .notifications-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .notification-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-md);
+            display: flex;
+            gap: var(--spacing-md);
+            transition: all var(--transition-base);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .notification-card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-color);
+        }
+
+        .notification-card.unread::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--primary-color);
+        }
+
+        .notif-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--primary-light);
+            color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .notif-content {
+            flex-grow: 1;
+        }
+
+        .notif-content h4 {
+            color: var(--secondary-color);
+            margin-bottom: 4px;
+            font-size: 1.05rem;
+        }
+
+        .notif-content p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        .notif-time {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-top: 8px;
+            display: block;
+        }
+    </style>
+
+    <script src="js/config.js"></script>
+    <script src="js/notifications.js"></script>
+</body>
+</html>
+
+    <!-- Styles -->
+    <style>
+        .notification-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #2563eb;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .notification-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .notification-card.read {
+            opacity: 0.7;
+            border-left-color: #d1d5db;
+        }
+
+        .notification-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .notification-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: #2563eb;
+            color: white;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .notification-timestamp {
+            font-size: 0.875rem;
+            color: #9ca3af;
+        }
+
+        .match-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .match-item {
+            padding: 1rem;
+            background: #f3f4f6;
+            border-radius: 0.5rem;
+        }
+
+        .match-item h4 {
+            color: #1f2937;
+            margin: 0 0 0.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        .match-item p {
+            margin: 0.25rem 0;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .match-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/i18n.js"></script>
+    <script>
+        let currentNotificationId = null;
+        let currentMatchId = null;
+
+        // Check authentication
+        function checkAuth() {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                window.location.href = 'login.html';
+            }
+        }
+
+        // Load notifications
+        async function loadNotifications() {
+            try {
+                const token = localStorage.getItem('token');
+                const response = await fetch('/api/notifications', {
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    }
+                });
+
+                if (!response.ok) throw new Error('Failed to load notifications');
+
+                const notifications = await response.json();
+                const container = document.getElementById('notificationsList');
+
+                if (notifications.length === 0) {
+                    container.innerHTML = `
+                        <div class="card" style="text-align: center; padding: 2rem; color: #6b7280;">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">🔔</div>
+                            <p data-i18n="notifications.noNotifications">No new notifications</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = notifications.map(notif => `
+                    <div class="notification-card ${notif.is_read ? 'read' : ''}" onclick="viewNotification(${notif.id}, ${notif.match_id || 'null'})">
+                        <div class="notification-header">
+                            <div>
+                                <h4 style="margin: 0 0 0.5rem 0; color: #1f2937;">${notif.title || i18n.t('notifications.potentialMatch')}</h4>
+                                <p style="margin: 0; color: #6b7280; font-size: 0.9rem;">${notif.message}</p>
+                            </div>
+                            <div>
+                                ${!notif.is_read ? '<span class="notification-badge">New</span>' : ''}
+                                <p class="notification-timestamp">${formatDate(notif.created_at)}</p>
+                            </div>
+                        </div>
+                        ${notif.score ? `<p style="margin: 0.5rem 0 0 0;"><strong>Match Score:</strong> <span style="color: #ea580c; font-weight: 600;">${notif.score}%</span></p>` : ''}
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading notifications:', error);
+            }
+        }
+
+        // View notification details
+        async function viewNotification(notifId, matchId) {
+            if (!matchId) return;
+
+            try {
+                currentNotificationId = notifId;
+                currentMatchId = matchId;
+
+                const token = localStorage.getItem('token');
+                const response = await fetch('/api/match/' + matchId, {
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    }
+                });
+
+                if (!response.ok) throw new Error('Failed to load match');
+
+                const match = await response.json();
+
+                // Display modal
+                const modal = document.getElementById('notificationModal');
+                const content = document.getElementById('modalContent');
+
+                content.innerHTML = `
+                    <div class="match-grid">
+                        <div class="match-item">
+                            <h4>Lost Item</h4>
+                            <p><strong>${match.lostItem.item_name}</strong></p>
+                            <p><strong>Category:</strong> ${match.lostItem.category}</p>
+                            <p><strong>Color:</strong> ${match.lostItem.color}</p>
+                            <p><strong>Location:</strong> ${match.lostItem.last_seen_location}</p>
+                            <p style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid #e5e7eb; color: #6b7280; font-size: 0.85rem;">${match.lostItem.description}</p>
+                        </div>
+                        <div class="match-item">
+                            <h4>Found Item</h4>
+                            <p><strong>${match.foundItem.item_name}</strong></p>
+                            <p><strong>Category:</strong> ${match.foundItem.category}</p>
+                            <p><strong>Color:</strong> ${match.foundItem.color}</p>
+                            <p><strong>Location:</strong> ${match.foundItem.found_location}</p>
+                            <p style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid #e5e7eb; color: #6b7280; font-size: 0.85rem;">${match.foundItem.description}</p>
+                        </div>
+                    </div>
+                    <div style="margin-top: 1rem; padding: 1rem; background: #fef3c7; border-left: 4px solid #f59e0b; border-radius: 0.5rem;">
+                        <p style="margin: 0;">
+                            <strong style="color: #d97706;">Match Score: ${match.score}%</strong>
+                            <div style="background: #fcd34d; height: 8px; border-radius: 4px; margin-top: 0.5rem;">
+                                <div style="background: #f59e0b; height: 100%; width: ${match.score}%; border-radius: 4px;"></div>
+                            </div>
+                        </p>
+                    </div>
+                    <div style="margin-top: 1rem; padding: 1rem; background: #eff6ff; border-radius: 0.5rem;">
+                        <p style="margin: 0; color: #1e40af; font-size: 0.9rem;">
+                            💡 Items with higher match scores are more likely to be the same item. Review the details carefully before accepting.
+                        </p>
+                    </div>
+                `;
+
+                modal.style.display = 'flex';
+
+                // Mark notification as read
+                markAsRead(notifId);
+            } catch (error) {
+                console.error('Error viewing notification:', error);
+            }
+        }
+
+        // Accept match
+        async function acceptMatch() {
+            if (!currentMatchId) return;
+
+            try {
+                const token = localStorage.getItem('token');
+                const response = await fetch('/api/match/accept', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ match_id: currentMatchId })
+                });
+
+                if (!response.ok) throw new Error('Failed to accept match');
+
+                alert('Match accepted! The item owner will be notified.');
+                closeModal();
+                loadNotifications();
+            } catch (error) {
+                console.error('Error accepting match:', error);
+                alert('Failed to accept match');
+            }
+        }
+
+        // Mark notification as read
+        async function markAsRead(notifId) {
+            try {
+                const token = localStorage.getItem('token');
+                await fetch('/api/notifications/read/' + notifId, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    }
+                });
+            } catch (error) {
+                console.error('Error marking as read:', error);
+            }
+        }
+
+        // Mark all as read
+        async function markAllAsRead() {
+            try {
+                const token = localStorage.getItem('token');
+                await fetch('/api/notifications/readAll', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    }
+                });
+
+                loadNotifications();
+            } catch (error) {
+                console.error('Error marking all as read:', error);
+            }
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('notificationModal').style.display = 'none';
+            currentNotificationId = null;
+            currentMatchId = null;
+        }
+
+        // Format date
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const seconds = Math.floor((now - date) / 1000);
+
+            if (seconds < 60) return 'Just now';
+            if (seconds < 3600) return Math.floor(seconds / 60) + 'm ago';
+            if (seconds < 86400) return Math.floor(seconds / 3600) + 'h ago';
+            
+            return date.toLocaleDateString();
+        }
+
+        // Logout function
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.clear();
+                window.location.href = 'login.html';
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAuth();
+            loadNotifications();
+            // Refresh notifications every 30 seconds
+            setInterval(loadNotifications, 30000);
+        });
+
+        // Close modal when clicking outside
+        document.getElementById('notificationModal').addEventListener('click', (e) => {
+            if (e.target.id === 'notificationModal') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

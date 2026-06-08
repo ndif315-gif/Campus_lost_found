@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Lost & Found | Professional Item Recovery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="landing-page">
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 9-2 2 2 2"/><path d="m15 9 2 2-2 2"/><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                <span class="brand-text">Campus L&F</span>
+            </div>
+            <div class="nav-menu">
+                <a href="about.html" class="nav-item">About</a>
+                <a href="login.html" class="nav-item">Login</a>
+                <a href="register.html" class="btn btn-primary btn-sm">Join Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="hero-container">
+        <div class="hero-content">
+            <span class="badge-new">Version 2.0 Live</span>
+            <h1>Lost it? Found it? <span class="text-gradient">Solve it.</span></h1>
+            <p>The most advanced campus recovery network. Trusted by 2,000+ students to reunite missing property with owners.</p>
+            <div class="hero-btns">
+                <a href="register.html" class="btn btn-primary btn-lg">Get Started</a>
+                <a href="about.html" class="btn btn-ghost">Learn More →</a>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="stats-row">
+                    <div class="stat-bubble">
+                        <span class="bubble-val">500+</span>
+                        <span class="bubble-lbl">Matched Items</span>
+                    </div>
+                    <div class="stat-bubble">
+                        <span class="bubble-val">98%</span>
+                        <span class="bubble-lbl">Success Rate</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <section class="dashboard-container section-block">
+        <div class="section-heading">
+            <span class="section-tag">Why choose us</span>
+            <h2>A cleaner workflow for lost and found recovery</h2>
+        </div>
+
+        <div class="features-grid">
+            <article class="feature-card">
+                <div class="feature-icon" aria-hidden="true">📷</div>
+                <h4>Image-based reports</h4>
+                <p>Attach photos to improve identification and reduce back-and-forth during verification.</p>
+            </article>
+            <article class="feature-card">
+                <div class="feature-icon" aria-hidden="true">⚡</div>
+                <h4>Fast matching</h4>
+                <p>Review similar items quickly with a structured dashboard and matching workflow.</p>
+            </article>
+            <article class="feature-card">
+                <div class="feature-icon" aria-hidden="true">🔒</div>
+                <h4>Secure access</h4>
+                <p>Token-based authentication and private user data keep the system controlled and reliable.</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="dashboard-container section-block search-section">
+        <div class="section-heading">
+            <span class="section-tag">Search posted items</span>
+            <h2>Browse everything already reported</h2>
+            <p class="section-copy">Search across lost and found posts in one place. No account needed to browse.</p>
+        </div>
+
+        <div class="search-panel">
+            <form id="globalSearchForm" class="search-toolbar">
+                <div class="input-wrapper search-input">
+                    <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                    <input type="search" id="globalSearchInput" placeholder="Search by item name, category, color, or location">
+                </div>
+                <button type="submit" class="btn btn-primary">Search</button>
+                <button type="button" id="clearSearchBtn" class="btn btn-outline">Reset</button>
+            </form>
+            <p id="searchStatus" class="search-status"></p>
+            <div id="searchResults" class="search-results"></div>
+        </div>
+    </section>
+    
+    <script>
+        // Redirect if already logged in
+        if (localStorage.getItem('token')) {
+            window.location.href = 'dashboard.html';
+        }
+    </script>
+    <script src="js/config.js"></script>
+    <script src="js/search.js"></script>
+</body>
+</html>

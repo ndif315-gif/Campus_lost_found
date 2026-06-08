@@ -1,0 +1,27 @@
+{
+  "name": "campus-lost-found",
+  "version": "1.0.0",
+  "description": "Campus Lost and Found Management System",
+  "main": "frontend-server.js",
+  "scripts": {
+    "start": "npm run start-all",
+    "start-all": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "backend": "cd backend && npm start",
+    "frontend": "node frontend-server.js",
+    "dev": "concurrently \"npm run backend-dev\" \"npm run frontend-dev\"",
+    "backend-dev": "cd backend && npm run dev",
+    "frontend-dev": "node frontend-server.js"
+  },
+  "keywords": [
+    "campus",
+    "lost-and-found",
+    "nodejs",
+    "express",
+    "sqlite"
+  ],
+  "author": "Group 8",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

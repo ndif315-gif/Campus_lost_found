@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Report Found Item - Campus Lost & Found">
+    <title>Report Found Item | Campus Lost & Found</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="report-page">
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 9-2 2 2 2"/><path d="m15 9 2 2-2 2"/><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                <span class="brand-text">Campus L&F</span>
+            </div>
+            
+            <div class="nav-menu">
+                <a href="dashboard.html" class="nav-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+                    <span>Dashboard</span>
+                </a>
+                <a href="report-lost.html" class="nav-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="12" x2="12" y1="18" y2="12"/><line x1="9" x2="15" y1="15" y2="15"/></svg>
+                    <span>Lost</span>
+                </a>
+                <a href="report-found.html" class="nav-item active">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                    <span>Found</span>
+                </a>
+                <a href="notifications.html" class="nav-item">
+                    <div class="notif-wrapper">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+                    </div>
+                    <span>Alerts</span>
+                </a>
+            </div>
+
+            <div class="nav-actions">
+                <button class="btn btn-ghost" onclick="logout()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="dashboard-container">
+        <div class="auth-card" style="max-width: 650px; margin: 0 auto;">
+            <div class="auth-header">
+                <div class="logo">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                </div>
+                <h1>Report Found Item</h1>
+                <p class="auth-subtitle">Help reunite an item with its rightful owner.</p>
+            </div>
+
+            <form id="reportFoundForm" class="modern-form">
+                <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <div class="input-wrapper">
+                            <select id="category" name="category" required style="width: 100%; padding: 0.75rem 1rem; border-radius: 0.75rem; border: 1px solid var(--border-color); background: var(--bg-light);">
+                                <option value="">Select category</option>
+                                <option value="Electronics">📱 Electronics</option>
+                                <option value="Bag">🎒 Bags & Luggage</option>
+                                <option value="Keys">🔑 Keys & Access Cards</option>
+                                <option value="Wallet">👛 Wallet & IDs</option>
+                                <option value="Other">📦 Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="itemName">Item Name</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="itemName" name="itemName" placeholder="e.g. Silver iPhone 13" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label for="brand">Brand</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="brand" name="brand" placeholder="e.g. Apple">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="color">Color</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="color" name="color" placeholder="e.g. Silver" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="location">Found Location</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="location" name="location" placeholder="e.g. Cafeteria Entrance" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Detailed Description</label>
+                    <textarea id="description" name="description" rows="3" placeholder="Found on a table, no case, screen is cracked..." required style="width: 100%; padding: 0.75rem 1rem; border-radius: 0.75rem; border: 1px solid var(--border-color); background: var(--bg-light); font-family: inherit; resize: vertical;"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Upload Photo</label>
+                    <div id="dropZone" class="custom-file-upload">
+                        <input type="file" id="photo" name="photo" accept="image/*" class="hidden">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+                        <p id="file-label">Click or drag image to upload</p>
+                        <span id="fileName" class="success-text" style="display:none; font-weight:600;"></span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Submit Report</button>
+                <div id="errorMessage" class="alert alert-danger" style="display:none"></div>
+            </form>
+        </div>
+    </main>
+
+    <style>
+        .custom-file-upload {
+            border: 2px dashed var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            display: flex; flex-direction: column; align-items: center; gap: var(--spacing-xs); color: var(--text-muted);
+        }
+        .custom-file-upload:hover, .custom-file-upload.dragover {
+            border-color: var(--primary-color); background: var(--primary-light); color: var(--primary-color);
+        }
+        .success-text { color: var(--success-color); }
+        .modern-form { display: flex; flex-direction: column; gap: 0.5rem; }
+        .input-wrapper input { padding-left: 1rem !important; }
+    </style>
+
+    <script src="js/config.js"></script>
+    <script src="js/found.js"></script>
+</body>
+</html>
